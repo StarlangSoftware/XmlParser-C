@@ -5,7 +5,8 @@
 #ifndef XMLPARSER_XMLELEMENTTYPE_H
 #define XMLPARSER_XMLELEMENTTYPE_H
 
-enum xml_text_type{XML_TEXT_ATTRIBUTE,
+enum xml_text_type {
+    XML_TEXT_ATTRIBUTE,
     XML_TEXT_VALUE,
     XML_TEXT_NOT_AVAILABLE
 };

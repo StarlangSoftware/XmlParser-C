@@ -26,10 +26,10 @@ Xml_element_ptr create_xml_element(char *name, Xml_element_ptr parent) {
 }
 
 void free_xml_element(Xml_element_ptr xml_element) {
-    if (xml_element->next_sibling != NULL){
+    if (xml_element->next_sibling != NULL) {
         free_xml_element(xml_element->next_sibling);
     }
-    if (xml_element->first_child != NULL){
+    if (xml_element->first_child != NULL) {
         free_xml_element(xml_element->first_child);
     }
     free(xml_element->name);
@@ -43,9 +43,9 @@ void free_xml_element(Xml_element_ptr xml_element) {
  * @param attributeValue New attribute value
  */
 void set_attribute_value(Xml_element_ptr xml_element, char *attribute_name, char *attribute_value) {
-    for (int i = 0; i < xml_element->attributes->size; i++){
+    for (int i = 0; i < xml_element->attributes->size; i++) {
         Xml_attribute_ptr xml_attribute = array_list_get(xml_element->attributes, i);
-        if (strcmp(xml_attribute->name, attribute_name) == 0){
+        if (strcmp(xml_attribute->name, attribute_name) == 0) {
             set_xml_attribute_value(xml_attribute, attribute_value);
         }
     }
@@ -57,9 +57,9 @@ void set_attribute_value(Xml_element_ptr xml_element, char *attribute_name, char
  * @return If the Xml element has such an attribute returns its value, otherwise it returns NULL
  */
 char *get_attribute_value(Xml_element_ptr xml_element, char *attribute_name) {
-    for (int i = 0; i < xml_element->attributes->size; i++){
+    for (int i = 0; i < xml_element->attributes->size; i++) {
         Xml_attribute_ptr xml_attribute = array_list_get(xml_element->attributes, i);
-        if (strcmp(xml_attribute->name, attribute_name) == 0){
+        if (strcmp(xml_attribute->name, attribute_name) == 0) {
             return xml_attribute->value;
         }
     }

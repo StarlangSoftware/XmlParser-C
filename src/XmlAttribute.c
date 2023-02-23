@@ -15,7 +15,7 @@ Xml_attribute_ptr create_xml_attribute(char *name) {
 }
 
 void free_xml_attribute(Xml_attribute_ptr xml_attribute) {
-    if (xml_attribute->value != NULL){
+    if (xml_attribute->value != NULL) {
         free(xml_attribute->value);
     }
     free(xml_attribute->name);
@@ -23,7 +23,7 @@ void free_xml_attribute(Xml_attribute_ptr xml_attribute) {
 }
 
 void set_xml_attribute_value(Xml_attribute_ptr xml_attribute, char *value) {
-    if (xml_attribute->value != NULL){
+    if (xml_attribute->value != NULL) {
         free(xml_attribute->value);
     }
     xml_attribute->value = malloc(strlen(value) + 1);

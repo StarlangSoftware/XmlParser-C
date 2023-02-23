@@ -39,7 +39,7 @@ char *read_token(Xml_document_ptr xml_document,
                  char *nextChar,
                  int extraAllowed,
                  int quotaAllowed) {
-    char* buffer;
+    char *buffer;
     char *result;
     buffer = calloc(1000, sizeof(char));
     char ch = previousChar;
@@ -126,7 +126,7 @@ char *get_next_token(Xml_document_ptr xml_document, Xml_text_type xml_text_type)
     char ch;
     char *token;
     ch = fgetc(xml_document->input_stream);
-    if (ch == EOF){
+    if (ch == EOF) {
         xml_document->last_read_token_type = XML_END;
         return NULL;
     }
@@ -186,7 +186,7 @@ char *get_next_token(Xml_document_ptr xml_document, Xml_text_type xml_text_type)
 void parse(Xml_document_ptr xml_document) {
     Xml_text_type text_type = XML_TEXT_ATTRIBUTE;
     int sibling_closed = 0;
-    char* token;
+    char *token;
     Xml_attribute_ptr xml_attribute;
     Xml_element_ptr sibling = NULL, current = NULL, parent = NULL;
     xml_document->input_stream = fopen(xml_document->file_name, "r");
@@ -271,8 +271,8 @@ void parse(Xml_document_ptr xml_document) {
     fclose(xml_document->input_stream);
 }
 
-char* replace_word(char* s, const char* old_word, const char* new_word) {
-    char* result, *start = s;
+char *replace_word(char *s, const char *old_word, const char *new_word) {
+    char *result, *start = s;
     int i, count = 0;
     int new_word_length = strlen(new_word);
     int old_word_length = strlen(old_word);
@@ -282,10 +282,10 @@ char* replace_word(char* s, const char* old_word, const char* new_word) {
             i += old_word_length - 1;
         }
     }
-    if (count == 0){
+    if (count == 0) {
         return s;
     }
-    result = (char*) malloc(i + count * (new_word_length - old_word_length) + 1);
+    result = (char *) malloc(i + count * (new_word_length - old_word_length) + 1);
     i = 0;
     while (*s) {
         if (strstr(s, old_word) == s) {
@@ -301,7 +301,7 @@ char* replace_word(char* s, const char* old_word, const char* new_word) {
     return result;
 }
 
-char* replace_escape_characters(char *token) {
+char *replace_escape_characters(char *token) {
     token = replace_word(token, "&quot;", "\"");
     token = replace_word(token, "&amp;", "&");
     token = replace_word(token, "&lt;", "<");
