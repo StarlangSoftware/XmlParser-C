@@ -30,7 +30,7 @@ char *get_attribute_value(Xml_element_ptr xml_element, char *attribute_name);
 
 void add_attribute(Xml_element_ptr xml_element, Xml_attribute_ptr xml_attribute);
 
-int has_attributes(Xml_element_ptr xml_element);
+bool has_attributes(Xml_element_ptr xml_element);
 
 int attribute_size(Xml_element_ptr xml_element);
 

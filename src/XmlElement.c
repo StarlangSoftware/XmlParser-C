@@ -70,7 +70,7 @@ void add_attribute(Xml_element_ptr xml_element, Xml_attribute_ptr xml_attribute)
     array_list_add(xml_element->attributes, xml_attribute);
 }
 
-int has_attributes(Xml_element_ptr xml_element) {
+bool has_attributes(Xml_element_ptr xml_element) {
     return !is_array_list_empty(xml_element->attributes);
 }
 
