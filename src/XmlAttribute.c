@@ -6,7 +6,7 @@
 #include <string.h>
 #include "XmlAttribute.h"
 
-Xml_attribute_ptr create_xml_attribute(char *name) {
+Xml_attribute_ptr create_xml_attribute(const char *name) {
     Xml_attribute_ptr result = malloc(sizeof(Xml_attribute));
     result->name = malloc(strlen(name) + 1);
     strcpy(result->name, name);

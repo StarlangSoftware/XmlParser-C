@@ -20,7 +20,7 @@ struct xml_document {
 typedef struct xml_document Xml_document;
 typedef Xml_document *Xml_document_ptr;
 
-Xml_document_ptr create_xml_document(char *file_name);
+Xml_document_ptr create_xml_document(const char *file_name);
 
 void free_document(Xml_document_ptr xml_document);
 

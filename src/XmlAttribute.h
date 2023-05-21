@@ -13,7 +13,7 @@ struct xml_attribute {
 typedef struct xml_attribute Xml_attribute;
 typedef Xml_attribute *Xml_attribute_ptr;
 
-Xml_attribute_ptr create_xml_attribute(char *name);
+Xml_attribute_ptr create_xml_attribute(const char *name);
 
 void free_xml_attribute(Xml_attribute_ptr xml_attribute);
 

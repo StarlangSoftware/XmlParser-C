@@ -12,7 +12,7 @@
  * @param file_name Name of the xml file
  * @return Empty xml document. Xml file is not parsed yet.
  */
-Xml_document_ptr create_xml_document(char *file_name) {
+Xml_document_ptr create_xml_document(const char *file_name) {
     Xml_document_ptr result = malloc(sizeof(Xml_document));
     result->file_name = malloc(strlen(file_name) + 1);
     strcpy(result->file_name, file_name);
