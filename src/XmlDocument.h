@@ -24,7 +24,7 @@ Xml_document_ptr create_xml_document(char *file_name);
 
 void free_document(Xml_document_ptr xml_document);
 
-char *read_token(Xml_document_ptr xml_document, char previousChar, char *nextChar, int extraAllowed, int quotaAllowed);
+char *read_token(const Xml_document* xml_document, char previousChar, char *nextChar, int extraAllowed, int quotaAllowed);
 
 char *parse_tag(Xml_document_ptr xml_document);
 

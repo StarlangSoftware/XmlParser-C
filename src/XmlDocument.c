@@ -34,7 +34,7 @@ void free_document(Xml_document_ptr xml_document) {
  * @param extraAllowed If true, space or slash is allowed in the token, otherwise it is not allowed
  * @return Token read
  */
-char *read_token(Xml_document_ptr xml_document,
+char *read_token(const Xml_document* xml_document,
                  char previousChar,
                  char *nextChar,
                  int extraAllowed,

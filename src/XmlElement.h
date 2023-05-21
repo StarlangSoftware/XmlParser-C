@@ -20,20 +20,20 @@ struct xml_element {
 typedef struct xml_element Xml_element;
 typedef Xml_element *Xml_element_ptr;
 
-Xml_element_ptr create_xml_element(char *name, Xml_element_ptr parent);
+Xml_element_ptr create_xml_element(const char *name, Xml_element_ptr parent);
 
 void free_xml_element(Xml_element_ptr xml_element);
 
-void set_attribute_value(Xml_element_ptr xml_element, char *attribute_name, char *attribute_value);
+void set_attribute_value(Xml_element_ptr xml_element, const char *attribute_name, const char *attribute_value);
 
-char *get_attribute_value(Xml_element_ptr xml_element, char *attribute_name);
+char *get_attribute_value(const Xml_element* xml_element, const char *attribute_name);
 
 void add_attribute(Xml_element_ptr xml_element, Xml_attribute_ptr xml_attribute);
 
-bool has_attributes(Xml_element_ptr xml_element);
+bool has_attributes(const Xml_element* xml_element);
 
-int attribute_size(Xml_element_ptr xml_element);
+int attribute_size(const Xml_element* xml_element);
 
-Xml_attribute_ptr get_attribute(Xml_element_ptr xml_element, int index);
+Xml_attribute_ptr get_attribute(const Xml_element* xml_element, int index);
 
 #endif //XMLPARSER_XMLELEMENT_H

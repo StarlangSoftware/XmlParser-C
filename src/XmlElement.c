@@ -14,7 +14,7 @@
  * @param hasAttributes If true, the element will have attributes, otherwise it won't have.
  * @return Constructed element
  */
-Xml_element_ptr create_xml_element(char *name, Xml_element_ptr parent) {
+Xml_element_ptr create_xml_element(const char *name, Xml_element_ptr parent) {
     Xml_element_ptr result = malloc(sizeof(Xml_element));
     result->name = malloc(strlen(name) + 1);
     strcpy(result->name, name);
@@ -42,7 +42,7 @@ void free_xml_element(Xml_element_ptr xml_element) {
  * @param attributeName Name of the attribute
  * @param attributeValue New attribute value
  */
-void set_attribute_value(Xml_element_ptr xml_element, char *attribute_name, char *attribute_value) {
+void set_attribute_value(Xml_element_ptr xml_element, const char *attribute_name, const char *attribute_value) {
     for (int i = 0; i < xml_element->attributes->size; i++) {
         Xml_attribute_ptr xml_attribute = array_list_get(xml_element->attributes, i);
         if (strcmp(xml_attribute->name, attribute_name) == 0) {
@@ -56,7 +56,7 @@ void set_attribute_value(Xml_element_ptr xml_element, char *attribute_name, char
  * @param[in] attributeName Name of the attribute
  * @return If the Xml element has such an attribute returns its value, otherwise it returns NULL
  */
-char *get_attribute_value(Xml_element_ptr xml_element, char *attribute_name) {
+char *get_attribute_value(const Xml_element* xml_element, const char *attribute_name) {
     for (int i = 0; i < xml_element->attributes->size; i++) {
         Xml_attribute_ptr xml_attribute = array_list_get(xml_element->attributes, i);
         if (strcmp(xml_attribute->name, attribute_name) == 0) {
@@ -70,14 +70,14 @@ void add_attribute(Xml_element_ptr xml_element, Xml_attribute_ptr xml_attribute)
     array_list_add(xml_element->attributes, xml_attribute);
 }
 
-bool has_attributes(Xml_element_ptr xml_element) {
+bool has_attributes(const Xml_element* xml_element) {
     return !is_array_list_empty(xml_element->attributes);
 }
 
-int attribute_size(Xml_element_ptr xml_element) {
+int attribute_size(const Xml_element* xml_element) {
     return xml_element->attributes->size;
 }
 
-Xml_attribute_ptr get_attribute(Xml_element_ptr xml_element, int index) {
+Xml_attribute_ptr get_attribute(const Xml_element* xml_element, int index) {
     return array_list_get(xml_element->attributes, index);
 }

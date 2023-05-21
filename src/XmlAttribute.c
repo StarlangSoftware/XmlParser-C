@@ -22,7 +22,7 @@ void free_xml_attribute(Xml_attribute_ptr xml_attribute) {
     free(xml_attribute);
 }
 
-void set_xml_attribute_value(Xml_attribute_ptr xml_attribute, char *value) {
+void set_xml_attribute_value(Xml_attribute_ptr xml_attribute, const char *value) {
     if (xml_attribute->value != NULL) {
         free(xml_attribute->value);
     }
