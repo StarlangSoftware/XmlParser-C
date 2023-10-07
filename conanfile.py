@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake, tools
 
 
-class UtilConan(ConanFile):
+class XmlParserConan(ConanFile):
     name = "XmlParser-C"
     version = "1.0.0"
     requires = "DataStructure-C/1.0.0"
