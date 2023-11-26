@@ -270,7 +270,9 @@ void parse(Xml_document_ptr xml_document) {
             case XML_END:
                 break;
         }
-        free_(token);
+        if (token != NULL){
+            free_(token);
+        }
         token = get_next_token(xml_document, text_type);
     }
     fclose(xml_document->input_stream);
