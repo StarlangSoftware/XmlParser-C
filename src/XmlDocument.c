@@ -2,9 +2,7 @@
 // Created by Olcay Taner YILDIZ on 30.01.2023.
 //
 
-#include <stdlib.h>
 #include <string.h>
-#include <sys/file.h>
 #include <Memory/Memory.h>
 #include "XmlDocument.h"
 

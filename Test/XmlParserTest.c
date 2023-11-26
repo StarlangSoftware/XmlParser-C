@@ -3,7 +3,6 @@
 //
 
 #include <string.h>
-#include <Memory/Memory.h>
 #include "../src/XmlDocument.h"
 
 int main() {

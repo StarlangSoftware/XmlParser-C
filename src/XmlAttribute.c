@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 30.01.2023.
 //
 
-#include <stdlib.h>
 #include <string.h>
 #include "XmlAttribute.h"
 #include "Memory/Memory.h"
