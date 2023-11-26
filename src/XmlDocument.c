@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/file.h>
+#include <Memory/Memory.h>
 #include "XmlDocument.h"
+
 
 /**
  * Creates an empty xml document.
@@ -13,8 +15,8 @@
  * @return Empty xml document. Xml file is not parsed yet.
  */
 Xml_document_ptr create_xml_document(const char *file_name) {
-    Xml_document_ptr result = malloc(sizeof(Xml_document));
-    result->file_name = malloc(strlen(file_name) + 1);
+    Xml_document_ptr result = malloc_(sizeof(Xml_document), "create_xml_document_1");
+    result->file_name = malloc_(strlen(file_name) + 1, "create_xml_document_2");
     strcpy(result->file_name, file_name);
     result->root = NULL;
     result->last_read_token_type = XML_END;
@@ -24,7 +26,8 @@ Xml_document_ptr create_xml_document(const char *file_name) {
 void free_document(Xml_document_ptr xml_document) {
     fclose(xml_document->input_stream);
     free_xml_element(xml_document->root);
-    free(xml_document);
+    free_(xml_document->file_name);
+    free_(xml_document);
 }
 
 /**
@@ -41,7 +44,10 @@ char *read_token(const Xml_document* xml_document,
                  int quotaAllowed) {
     char *buffer;
     char *result;
-    buffer = calloc(1000, sizeof(char));
+    buffer = malloc_(1000 * sizeof(char), "read_token_1");
+    for (int i = 0; i < 1000; i++){
+        buffer[i] = '\0';
+    }
     char ch = previousChar;
     while ((ch != '\'' || extraAllowed) && (ch != '\"' || quotaAllowed) && (ch != '=' || quotaAllowed) &&
            (ch != ' ' || extraAllowed) && (ch != '/' || extraAllowed) && (ch != EOF) && (ch != '<') &&
@@ -50,9 +56,9 @@ char *read_token(const Xml_document* xml_document,
         ch = fgetc(xml_document->input_stream);
     }
     *nextChar = ch;
-    result = malloc(strlen(buffer) + 1);
+    result = malloc_(strlen(buffer) + 1, "read_token_2");
     strcpy(result, buffer);
-    free(buffer);
+    free_(buffer);
     return result;
 }
 
@@ -76,6 +82,7 @@ char *parse_tag(Xml_document_ptr xml_document) {
     }
     if (xml_document->last_read_token_type == XML_CLOSING_TAG_WITHOUT_ATTRIBUTES && ch != '>') {
         xml_document->last_read_token_type = XML_END;
+        free_(token);
         return NULL;
     } else {
         return token;
@@ -96,6 +103,7 @@ char *parse_attribute_value(Xml_document_ptr xml_document) {
     }
     token = read_token(xml_document, ch, &ch, 1, 0);
     if (ch != '\"') {
+        free_(token);
         xml_document->last_read_token_type = XML_END;
         return "";
     }
@@ -259,13 +267,15 @@ void parse(Xml_document_ptr xml_document) {
                 } else {
                     if (text_type == XML_TEXT_VALUE) {
                         token = replace_escape_characters(token);
-                        current->pcData = token;
+                        current->pcData = malloc_((strlen(token) + 1) * sizeof(char), "parse");
+                        strcpy(current->pcData, token);
                     }
                 }
                 break;
             case XML_END:
                 break;
         }
+        free_(token);
         token = get_next_token(xml_document, text_type);
     }
     fclose(xml_document->input_stream);
@@ -285,7 +295,7 @@ char *replace_word(char *s, const char *old_word, const char *new_word) {
     if (count == 0) {
         return s;
     }
-    result = (char *) malloc(i + count * (new_word_length - old_word_length) + 1);
+    result = (char *) malloc_(i + count * (new_word_length - old_word_length) + 1, "replace_word");
     i = 0;
     while (*s) {
         if (strstr(s, old_word) == s) {
@@ -297,7 +307,7 @@ char *replace_word(char *s, const char *old_word, const char *new_word) {
         }
     }
     result[i] = '\0';
-    free(start);
+    free_(start);
     return result;
 }
 

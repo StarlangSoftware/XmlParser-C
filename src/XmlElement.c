@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <Memory/Memory.h>
 #include "XmlElement.h"
 #include "XmlAttribute.h"
 
@@ -15,13 +16,14 @@
  * @return Constructed element
  */
 Xml_element_ptr create_xml_element(const char *name, Xml_element_ptr parent) {
-    Xml_element_ptr result = malloc(sizeof(Xml_element));
-    result->name = malloc(strlen(name) + 1);
+    Xml_element_ptr result = malloc_(sizeof(Xml_element), "create_xml_element_1");
+    result->name = malloc_(strlen(name) + 1, "create_xml_element_2");
     strcpy(result->name, name);
     result->parent = parent;
     result->attributes = create_array_list();
     result->next_sibling = NULL;
     result->first_child = NULL;
+    result->pcData = NULL;
     return result;
 }
 
@@ -32,9 +34,10 @@ void free_xml_element(Xml_element_ptr xml_element) {
     if (xml_element->first_child != NULL) {
         free_xml_element(xml_element->first_child);
     }
-    free(xml_element->name);
+    free_(xml_element->name);
+    free_(xml_element->pcData);
     free_array_list(xml_element->attributes, (void (*)(void *)) free_xml_attribute);
-    free(xml_element);
+    free_(xml_element);
 }
 
 /**

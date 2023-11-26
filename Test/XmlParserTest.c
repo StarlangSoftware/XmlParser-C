@@ -3,6 +3,7 @@
 //
 
 #include <string.h>
+#include <Memory/Memory.h>
 #include "../src/XmlDocument.h"
 
 int main() {
@@ -10,27 +11,27 @@ int main() {
     parse(doc);
     Xml_element_ptr root = doc->root;
     if (strcmp("frameset", root->name) != 0) {
-        printf("Test Failed\n");
+        printf("Test 1 Failed\n");
     }
     Xml_element_ptr firstChild = root->first_child;
     if (strcmp("role", firstChild->name) != 0) {
-        printf("Test Failed\n");
+        printf("Test 2 Failed\n");
     }
     if (strcmp("ali veli \"deneme yapmak\" = anlamında > bir deyim", firstChild->pcData) != 0) {
-        printf("Test Failed\n");
+        printf("Test 3 Failed\n");
     }
     Xml_element_ptr secondChild = firstChild->next_sibling;
     char *s = get_attribute_value(secondChild, "descr");
     if (strcmp("perceiver, alien \"x3\" to whom?", s) != 0) {
-        printf("Test Failed\n");
+        printf("Test 4 Failed\n");
     }
     s = get_attribute_value(secondChild, "f");
     if (strcmp("PAG", s) != 0) {
-        printf("Test Failed\n");
+        printf("Test 5 Failed\n");
     }
     s = get_attribute_value(secondChild, "n");
     if (strcmp("2", s) != 0) {
-        printf("Test Failed\n");
+        printf("Test 6 Failed\n");
     }
     free_document(doc);
 }
