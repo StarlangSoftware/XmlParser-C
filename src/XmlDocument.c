@@ -42,10 +42,7 @@ char *read_token(const Xml_document* xml_document,
                  int quotaAllowed) {
     char *buffer;
     char *result;
-    buffer = malloc_(1000 * sizeof(char), "read_token_1");
-    for (int i = 0; i < 1000; i++){
-        buffer[i] = '\0';
-    }
+    buffer = calloc_(1000, sizeof(char), "read_token_1");
     char ch = previousChar;
     while ((ch != '\'' || extraAllowed) && (ch != '\"' || quotaAllowed) && (ch != '=' || quotaAllowed) &&
            (ch != ' ' || extraAllowed) && (ch != '/' || extraAllowed) && (ch != EOF) && (ch != '<') &&
