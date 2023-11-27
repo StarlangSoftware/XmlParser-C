@@ -41,18 +41,22 @@ char *read_token(const Xml_document* xml_document,
                  int extraAllowed,
                  int quotaAllowed) {
     char *buffer;
-    char *result;
+    char *result = NULL;
     buffer = calloc_(1000, sizeof(char), "read_token_1");
     char ch = previousChar;
+    int index = 0;
     while ((ch != '\'' || extraAllowed) && (ch != '\"' || quotaAllowed) && (ch != '=' || quotaAllowed) &&
            (ch != ' ' || extraAllowed) && (ch != '/' || extraAllowed) && (ch != EOF) && (ch != '<') &&
            (ch != '>' || quotaAllowed)) {
-        buffer = strcat(buffer, &ch);
+        buffer[index] = ch;
+        index++;
         ch = fgetc(xml_document->input_stream);
     }
     *nextChar = ch;
-    result = malloc_(strlen(buffer) + 1, "read_token_2");
-    strcpy(result, buffer);
+    if (strlen(buffer) > 0){
+        result = malloc_(strlen(buffer) + 1, "read_token_2");
+        strcpy(result, buffer);
+    }
     free_(buffer);
     return result;
 }
@@ -262,8 +266,12 @@ void parse(Xml_document_ptr xml_document) {
                 } else {
                     if (text_type == XML_TEXT_VALUE) {
                         token = replace_escape_characters(token);
-                        current->pcData = malloc_((strlen(token) + 1) * sizeof(char), "parse");
-                        strcpy(current->pcData, token);
+                        if (token != NULL){
+                            current->pcData = malloc_((strlen(token) + 1) * sizeof(char), "parse");
+                            strcpy(current->pcData, token);
+                        } else {
+                            current->pcData = NULL;
+                        }
                     }
                 }
                 break;
@@ -279,6 +287,9 @@ void parse(Xml_document_ptr xml_document) {
 }
 
 char *replace_word(char *s, const char *old_word, const char *new_word) {
+    if (s == NULL){
+        return s;
+    }
     char *result, *start = s;
     int i, count = 0;
     int new_word_length = strlen(new_word);

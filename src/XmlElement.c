@@ -34,7 +34,9 @@ void free_xml_element(Xml_element_ptr xml_element) {
         free_xml_element(xml_element->first_child);
     }
     free_(xml_element->name);
-    free_(xml_element->pcData);
+    if (xml_element->pcData != NULL){
+        free_(xml_element->pcData);
+    }
     free_array_list(xml_element->attributes, (void (*)(void *)) free_xml_attribute);
     free_(xml_element);
 }
