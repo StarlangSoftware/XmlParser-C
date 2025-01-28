@@ -30,9 +30,11 @@ void free_document(Xml_document_ptr xml_document) {
 
 /**
  * Reads a token character by character from xml file.
+ * @param xml_document Document
  * @param previousChar Previous character read
  * @param nextChar The character after the token
  * @param extraAllowed If true, space or slash is allowed in the token, otherwise it is not allowed
+ * @param quotaAllowed If true, quota is allowed in the token.
  * @return Token read
  */
 char *read_token(const Xml_document* xml_document,

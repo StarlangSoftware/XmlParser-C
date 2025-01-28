@@ -11,7 +11,6 @@
  * Constructor for xml element. Allocates memory and initializes an element.
  * @param name Name of the element
  * @param parent Parent of the Xml Element
- * @param hasAttributes If true, the element will have attributes, otherwise it won't have.
  * @return Constructed element
  */
 Xml_element_ptr create_xml_element(const char *name, Xml_element_ptr parent) {
@@ -43,8 +42,9 @@ void free_xml_element(Xml_element_ptr xml_element) {
 
 /**
  * Sets the value of an attribute to a given value
- * @param attributeName Name of the attribute
- * @param attributeValue New attribute value
+ * @param xml_element Xml element
+ * @param attribute_name Name of the attribute
+ * @param attribute_value New attribute value
  */
 void set_attribute_value(Xml_element_ptr xml_element, const char *attribute_name, const char *attribute_value) {
     for (int i = 0; i < xml_element->attributes->size; i++) {
@@ -57,7 +57,8 @@ void set_attribute_value(Xml_element_ptr xml_element, const char *attribute_name
 
 /**
  * Finds the attribute with the given name of an Xml element
- * @param[in] attributeName Name of the attribute
+ * @param xml_element Xml element
+ * @param[in] attribute_name Name of the attribute
  * @return If the Xml element has such an attribute returns its value, otherwise it returns NULL
  */
 char *get_attribute_value(const Xml_element* xml_element, const char *attribute_name) {
