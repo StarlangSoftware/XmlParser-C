@@ -43,7 +43,7 @@ char *read_token(const Xml_document* xml_document,
                  int quotaAllowed) {
     char *buffer;
     char *result = NULL;
-    buffer = calloc_(1000, sizeof(char), "read_token_1");
+    buffer = calloc_(16384, sizeof(char), "read_token_1");
     char ch = previousChar;
     int index = 0;
     while ((ch != '\'' || extraAllowed) && (ch != '\"' || quotaAllowed) && (ch != '=' || quotaAllowed) &&
