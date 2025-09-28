@@ -22,7 +22,6 @@ Xml_document_ptr create_xml_document(const char *file_name) {
 }
 
 void free_document(Xml_document_ptr xml_document) {
-    fclose(xml_document->input_stream);
     free_xml_element(xml_document->root);
     free_(xml_document->file_name);
     free_(xml_document);
