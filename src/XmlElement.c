@@ -14,8 +14,8 @@
  * @return Constructed element
  */
 Xml_element_ptr create_xml_element(const char *name, Xml_element_ptr parent) {
-    Xml_element_ptr result = malloc_(sizeof(Xml_element), "create_xml_element_1");
-    result->name = malloc_(strlen(name) + 1, "create_xml_element_2");
+    Xml_element_ptr result = malloc_(sizeof(Xml_element));
+    result->name = malloc_(strlen(name) + 1);
     strcpy(result->name, name);
     result->parent = parent;
     result->attributes = create_array_list();

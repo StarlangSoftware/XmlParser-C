@@ -3,9 +3,12 @@
 //
 
 #include <string.h>
+#include <Memory/Memory.h>
+
 #include "../src/XmlDocument.h"
 
 int main() {
+    start_memory_check();
     Xml_document_ptr doc = create_xml_document("test.xml");
     parse(doc);
     Xml_element_ptr root = doc->root;
@@ -33,4 +36,5 @@ int main() {
         printf("Test 6 Failed\n");
     }
     free_document(doc);
+    end_memory_check();
 }

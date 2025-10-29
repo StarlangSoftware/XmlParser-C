@@ -13,8 +13,8 @@
  * @return Empty xml document. Xml file is not parsed yet.
  */
 Xml_document_ptr create_xml_document(const char *file_name) {
-    Xml_document_ptr result = malloc_(sizeof(Xml_document), "create_xml_document_1");
-    result->file_name = malloc_(strlen(file_name) + 1, "create_xml_document_2");
+    Xml_document_ptr result = malloc_(sizeof(Xml_document));
+    result->file_name = malloc_(strlen(file_name) + 1);
     strcpy(result->file_name, file_name);
     result->root = NULL;
     result->last_read_token_type = XML_END;
@@ -43,7 +43,7 @@ char *read_token(const Xml_document* xml_document,
                  int quotaAllowed) {
     char *buffer;
     char *result = NULL;
-    buffer = calloc_(16384, sizeof(char), "read_token_1");
+    buffer = calloc_(16384, sizeof(char));
     char ch = previousChar;
     int index = 0;
     while ((ch != '\'' || extraAllowed) && (ch != '\"' || quotaAllowed) && (ch != '=' || quotaAllowed) &&
@@ -55,7 +55,7 @@ char *read_token(const Xml_document* xml_document,
     }
     *nextChar = ch;
     if (strlen(buffer) > 0){
-        result = malloc_(strlen(buffer) + 1, "read_token_2");
+        result = malloc_(strlen(buffer) + 1);
         strcpy(result, buffer);
     }
     free_(buffer);
@@ -268,7 +268,7 @@ void parse(Xml_document_ptr xml_document) {
                     if (text_type == XML_TEXT_VALUE) {
                         token = replace_escape_characters(token);
                         if (token != NULL){
-                            current->pcData = malloc_((strlen(token) + 1) * sizeof(char), "parse");
+                            current->pcData = malloc_((strlen(token) + 1) * sizeof(char));
                             strcpy(current->pcData, token);
                         } else {
                             current->pcData = NULL;
@@ -304,7 +304,7 @@ char *replace_word(char *s, const char *old_word, const char *new_word) {
     if (count == 0) {
         return s;
     }
-    result = (char *) malloc_(i + count * (new_word_length - old_word_length) + 1, "replace_word");
+    result = (char *) malloc_(i + count * (new_word_length - old_word_length) + 1);
     i = 0;
     while (*s) {
         if (strstr(s, old_word) == s) {
